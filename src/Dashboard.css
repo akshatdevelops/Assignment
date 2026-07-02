@@ -190,7 +190,39 @@
     cursor: pointer;
 }
 
+.stats{
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap:14px;
+}
 
+.stat{
+    padding: 16px;
+    border-radius: 12px;
+}
+
+.stat.red{background: white;}
+.stat.orange{background: white;}
+.stat.green{background: white;}
+.stat.purple{background: white;}
+.stat.icon{
+    width: 34px;
+    height: 34px;
+    border-radius: 10px;
+    display: grid;
+    place-items: center;
+    color: white;
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+.stat.red .stat-icon{background:red;}
+.stat.orange .stat-icon{background: orange;}
+.stat.green .stat-icon{background: green;}
+.stat.purple .stat-icon{background: purple;}
+
+.stat-label{background: wheat;}
+.stat-delta{background: greenyellow;}
 
 
 
