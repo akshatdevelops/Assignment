@@ -203,8 +203,140 @@ const Dashboard = () => {
                       </LineChart>
                     </ResponsiveContainer>
                   </div>
-                </div>
+        </div>
+        <div className="grid-3">
+                          <div className="card">
+                            <div className="card-header">
+                              <h3 className="card-title">Total Revenue</h3>
+                            </div>
+                            <ResponsiveContainer width="100%" height={230}>
+                              <BarChart data={revenueData}>
+                                <CartesianGrid stroke="#f1f3f6" vertical={false} />
+                                <XAxis dataKey="day" tick={{ fontSize: 10 }} axisLine={false} tickLine={false} />
+                                <YAxis tick={{ fontSize: 10 }} axisLine={false} tickLine={false} />
+                                <Tooltip />
+                                <Legend wrapperStyle={{ fontSize: 11 }} />
+                                <Bar dataKey="online" fill="#3b82f6" name="Online Sales" radius={[3,3,0,0]} />
+                                <Bar dataKey="offline" fill="#22c55e" name="Offline Sales" radius={[3,3,0,0]} />
+                              </BarChart>
+                            </ResponsiveContainer>
+                          </div>
+                          <div className="card">
+                            <div className="card-header">
+                              <h3 className="card-title">Customer Satisfaction</h3>
+                            </div>
+                            <ResponsiveContainer width="100%" height={230}>
+                              <AreaChart data={satisfactionData}>
+                                <defs>
+                                  <linearGradient id="g1" x1="0" y1="0" x2="0" y2="1">
+                                    <stop offset="0%" stopColor="#3b82f6" stopOpacity={.4} />
+                                    <stop offset="100%" stopColor="#3b82f6" stopOpacity={0} />
+                                  </linearGradient>
+                                  <linearGradient id="g2" x1="0" y1="0" x2="0" y2="1">
+                                    <stop offset="0%" stopColor="#22c55e" stopOpacity={.4} />
+                                    <stop offset="100%" stopColor="#22c55e" stopOpacity={0} />
+                                  </linearGradient>
+                                </defs>
+                                <XAxis dataKey="m" tick={{ fontSize: 10 }} axisLine={false} tickLine={false} />
+                                <Tooltip />
+                                <Area type="monotone" dataKey="last" stroke="#3b82f6" fill="url(#g1)" name="Last Month $3,004" />
+                                <Area type="monotone" dataKey="curr" stroke="#22c55e" fill="url(#g2)" name="This Month $4,504" />
+                                <Legend wrapperStyle={{ fontSize: 11 }} />
+                              </AreaChart>
+                            </ResponsiveContainer>
+                          </div>
+                          <div className="card">
+                            <div className="card-header">
+                              <h3 className="card-title">Target vs Reality</h3>
+                            </div>
+                            <ResponsiveContainer width="100%" height={180}>
+                              <BarChart data={targetData}>
+                                <XAxis dataKey="m" tick={{ fontSize: 10 }} axisLine={false} tickLine={false} />
+                                <Tooltip />
+                                <Bar dataKey="reality" fill="#22c55e" radius={[3,3,0,0]} />
+                                <Bar dataKey="target" fill="#facc15" radius={[3,3,0,0]} />
+                              </BarChart>
+                            </ResponsiveContainer>
+                            <div className="target-row">
+                              <div style={{ display: "flex", alignItems: "center" }}>
+                                <div className="target-icon" style={{ background: "#dcfce7", color: "#16a34a" }}>📊</div>
+                                <div>
+                                  <div style={{ fontWeight: 600 }}>Reality Sales</div>
+                                  <div style={{ fontSize: 11, color: "#9ca3af" }}>Global</div>
+                                </div>
+                              </div>
+                              <div style={{ color: "#16a34a", fontWeight: 700 }}>8,823</div>
+                            </div>
+                            <div className="target-row">
+                              <div style={{ display: "flex", alignItems: "center" }}>
+                                <div className="target-icon" style={{ background: "#fef3c7", color: "#f59e0b" }}>🎯</div>
+                                <div>
+                                  <div style={{ fontWeight: 600 }}>Target Sales</div>
+                                  <div style={{ fontSize: 11, color: "#9ca3af" }}>Commercial</div>
+                                </div>
+                              </div>
+                              <div style={{ color: "#f59e0b", fontWeight: 700 }}>12,122</div>
+                            </div>
+                          </div>
+                        </div>
+                        
+                        <div className="grid-3">
+                          <div className="card">
+                            <div className="card-header">
+                              <h3 className="card-title">Top Products</h3>
+                            </div>
+                            <div className="tp-row head">
+                              <span>#</span><span>Name</span><span>Popularity</span><span>Sales</span>
+                            </div>
+                            {topProducts.map((p) => (
+                              <div key={p.rank} className="tp-row">
+                                <span>{p.rank}</span>
+                                <span>{p.name}</span>
+                                <div className="bar"><span style={{ width: `${p.pop*2}%`, background: p.color }} /></div>
+                                <span className="pill" style={{ color: p.color }}>{p.sales}</span>
+                              </div>
+                            ))}
+                          </div>
+                          <div className="card">
+                            <div className="card-header">
+                              <h3 className="card-title">Sales Mapping by Country</h3>
+                            </div>
+                            {[
+                              { c: "United States", v: 65, color: "#ef4444" },
+                              { c: "Canada", v: 45, color: "#f59e0b" },
+                              { c: "Brazil", v: 30, color: "#22c55e" },
+                              { c: "Russia", v: 55, color: "#8b5cf6" },
+                              { c: "China", v: 40, color: "#3b82f6" },
+                            ].map((r) => (
+                              <div key={r.c} style={{ margin: "14px 0" }}>
+                                <div style={{ display: "flex", justifyContent: "space-between", fontSize: 13, marginBottom: 6 }}>
+                                  <span>{r.c}</span><span style={{ color: "#6b7280" }}>{r.v}%</span>
+                                </div>
+                                <div className="bar"><span style={{ width: `${r.v}%`, background: r.color }} /></div>
+                              </div>
+                            ))}
+                          </div>
+                          <div className="card">
+                            <div className="card-header">
+                              <h3 className="card-title">Volume vs Service Level</h3>
+                            </div>
+                            <ResponsiveContainer width="100%" height={200}>
+                              <BarChart data={volumeData}>
+                                <XAxis dataKey="m" tick={{ fontSize: 10 }} axisLine={false} tickLine={false} />
+                                <Tooltip />
+                                <Bar dataKey="volume" fill="#3b82f6" radius={[3,3,0,0]} />
+                                <Bar dataKey="service" fill="#22c55e" radius={[3,3,0,0]} />
+                              </BarChart>
+                            </ResponsiveContainer>
+                            <div style={{ display: "flex", justifyContent: "space-around", fontSize: 12, marginTop: 8 }}>
+                              <div><span style={{ color: "#3b82f6" }}>● Volume</span> <b>1,135</b></div>
+                              <div><span style={{ color: "#22c55e" }}>● Services</span> <b>635</b></div>
+                            </div>
+                          </div>
+                        </div>
         
+                        
+                        
         <div className='card table-card'>
             <div className='card-header'>
                 <div>
