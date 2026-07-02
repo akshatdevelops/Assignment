@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react'
-/* import {
+ import {
   BarChart, Bar, LineChart, Line, AreaChart, Area,
   XAxis, YAxis, Tooltip, ResponsiveContainer, Legend, CartesianGrid,
-} from "recharts";  */
+} from "recharts";  
  import './Dashboard.css'
-import { ResponsiveContainer } from 'recharts'; 
+
  const revenueData = [
   { day: "Monday", online: 15000, offline: 12000 },
   { day: "Tuesday", online: 22000, offline: 9000 },
@@ -166,34 +166,45 @@ const Dashboard = () => {
   
          </div>
         </div>
-        <div className='grid'>
-           <div className='card'>
-               <div className='card-title'>
-                  Todays Sales
-               </div>
-               <div className='card-title'> 
-                   Sales Summary
-               </div>
-               <button>Export</button>
-           </div>
-           <div className='stats'>
-             {stats.map((s)=>(
-                <div key={s.label}>
-                    <div className='stats-icon'>{s.icon}</div>
-                    <p className='stats-value'>{s.value}</p>
-                    <p className='stats-label'>{s.label}</p>
+         <div className="grid">
+                  <div className="card">
+                    <div className="card-header">
+                      <div>
+                        <h3 className="card-title">Today's Sales</h3>
+                        <div className="card-sub">Sales Summary</div>
+                      </div>
+                      <button className="export-btn">⬇ Export</button>
                     </div>
-             ))}
-           </div>
-        </div>
-        <div className='card'>
-            <div className='card-header'>
-                <h3 className='card-title'>Visitor Insights</h3>
-            </div>
-            {/* <ResponsiveContainer width="100%" height={220}>
-
-            </ResponsiveContainer> */}
-        </div>
+                    <div className="stats">
+                      {stats.map((s) => (
+                        <div key={s.label} className={`stat ${s.color}`}>
+                          <div className="stat-icon">{s.icon}</div>
+                          <p className="stat-value">{s.value}</p>
+                          <p className="stat-label">{s.label}</p>
+                          <p className="stat-delta">{s.delta}</p>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                  <div className="card">
+                    <div className="card-header">
+                      <h3 className="card-title">Visitor Insights</h3>
+                    </div>
+                    <ResponsiveContainer width="100%" height={220}>
+                      <LineChart data={visitorData}>
+                        <CartesianGrid stroke="#f1f3f6" vertical={false} />
+                        <XAxis dataKey="m" tick={{ fontSize: 11 }} axisLine={false} tickLine={false} />
+                        <YAxis tick={{ fontSize: 11 }} axisLine={false} tickLine={false} />
+                        <Tooltip />
+                        <Legend wrapperStyle={{ fontSize: 11 }} />
+                        <Line type="monotone" dataKey="loyal" stroke="#8b5cf6" strokeWidth={2} dot={false} name="Loyal Customers" />
+                        <Line type="monotone" dataKey="new" stroke="#ef4444" strokeWidth={2} dot={false} name="New Customers" />
+                        <Line type="monotone" dataKey="unique" stroke="#22c55e" strokeWidth={2} dot={false} name="Unique Customers" />
+                      </LineChart>
+                    </ResponsiveContainer>
+                  </div>
+                </div>
+        
         <div className='card table-card'>
             <div className='card-header'>
                 <div>
